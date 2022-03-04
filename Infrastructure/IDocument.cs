@@ -6,8 +6,8 @@ namespace alfa_back.Infrastructure
     public interface IDocument
     {
         [BsonId]
-        [BsonRepresentation(BsonType.String)]
-        ObjectId Id { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        string Id { get; set; }
         
     }
 }

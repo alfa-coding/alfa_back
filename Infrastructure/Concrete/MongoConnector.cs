@@ -14,7 +14,8 @@ namespace alfa_back.Infrastructure.Concrete
 
         public MongoDbConnector(IMongoDbSettings settings) // Constructor
         {
-            var database = new MongoClient(settings.ConnectionString).GetDatabase(settings.DatabaseName);
+            var connectionString = settings.ComposeConnectionString();
+            var database = new MongoClient(connectionString).GetDatabase(settings.DatabaseName);
             _collection = database.GetCollection<T>(GetCollectionName(typeof(T)));
         }
 
@@ -29,8 +30,8 @@ namespace alfa_back.Infrastructure.Concrete
         public Task<T> GetElementById(string id)
         {
 
-            var objectId = new ObjectId(id);
-            var filter = Builders<T>.Filter.Eq(doc => doc.Id, objectId);
+            
+            var filter = Builders<T>.Filter.Eq(doc => doc.Id, id);
             return Task.Run(() =>
                     {
                         return _collection.Find(filter).SingleOrDefaultAsync();
@@ -63,8 +64,8 @@ namespace alfa_back.Infrastructure.Concrete
         {
             return Task.Run(() =>
             {
-                var objectId = new ObjectId(id);
-                var filter = Builders<T>.Filter.Eq(doc => doc.Id, objectId);
+                
+                var filter = Builders<T>.Filter.Eq(doc => doc.Id, id);
                 _collection.FindOneAndDeleteAsync(filter);
             });
         }
@@ -84,6 +85,6 @@ namespace alfa_back.Infrastructure.Concrete
 
         }
 
-        
+
     }
 }
