@@ -1,0 +1,22 @@
+{
+  "name": "alfa_back",
+  "version": "1.0.0",
+  "description": "This backend provides a user authentication and authorization for the alfa coding app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/alfa-coding/alfa_back.git"
+  },
+  "author": "Dimas Veliz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alfa-coding/alfa_back/issues"
+  },
+  "homepage": "https://github.com/alfa-coding/alfa_back#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
