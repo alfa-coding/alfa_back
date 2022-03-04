@@ -26,27 +26,31 @@ namespace alfa_back.Infrastructure.Concrete
                 .FirstOrDefault())?.CollectionName;
         }
 
-        public T GetElementById(string id)
+        public Task<T> GetElementById(string id)
         {
 
             var objectId = new ObjectId(id);
             var filter = Builders<T>.Filter.Eq(doc => doc.Id, objectId);
-            return _collection.Find(filter).SingleOrDefault();
+            return Task.Run(() =>
+                    {
+                        return _collection.Find(filter).SingleOrDefaultAsync();
+                    });
         }
 
-        public IEnumerable<T> GetElements()
+        public IQueryable<T> GetElements()
         {
-            return _collection.Find(new BsonDocument()).ToEnumerable();
-
-
+            return _collection.AsQueryable();
         }
 
-        public bool InsertElement(T record)
+        public Task InsertElementAsync(T record)
         {
             try
             {
-                _collection.InsertOne(record);
-                return true;
+                return Task.Run(() =>
+                    {
+                        return _collection.InsertOneAsync(record);
+                    });
+
             }
             catch (Exception)
             {
@@ -55,32 +59,22 @@ namespace alfa_back.Infrastructure.Concrete
             }
         }
 
-        public bool RemoveElement(string id)
+        public Task DeleteElementByIdAsync(string id)
         {
-            var objectId = new ObjectId(id);
-            var filter = Builders<T>.Filter.Eq(doc => doc.Id, objectId);
-
-            try
+            return Task.Run(() =>
             {
-                _collection.FindOneAndDelete(filter);
-                return true;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-
+                var objectId = new ObjectId(id);
+                var filter = Builders<T>.Filter.Eq(doc => doc.Id, objectId);
+                _collection.FindOneAndDeleteAsync(filter);
+            });
         }
 
-        public bool Update(string id, T element)
+        public async Task UpdateElementAsync(string id, T element)
         {
             var filter = Builders<T>.Filter.Eq(doc => doc.Id, element.Id);
             try
             {
-                _collection.FindOneAndReplace(filter, element);
-                return true;
+                await _collection.FindOneAndReplaceAsync(filter, element);
             }
             catch (Exception)
             {
@@ -89,5 +83,7 @@ namespace alfa_back.Infrastructure.Concrete
             }
 
         }
+
+        
     }
 }

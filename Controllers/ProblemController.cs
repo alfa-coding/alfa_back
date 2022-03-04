@@ -21,6 +21,20 @@ namespace alfa_back.Controllers
         {
             this._logger = logger;
             this.ProblemContext = _problemContext;
+
+            var isEmpty = this.ProblemContext.GetElements().ToList().Count == 0;
+            if (isEmpty)
+            {
+                Problem cat1 = new Problem() { Name = "C1",LanguageInformation=new List<LanguageInfo>(){new LanguageInfo(){Extension="cs",LanguageName="C#",MilisecondsAllowed=200},new LanguageInfo(){Extension="cpp", LanguageName="C++", MilisecondsAllowed=1000}},Description="Given an array of non negative integer numbers, calculate its average" };
+                Problem cat2 = new Problem() { Name = "C2",LanguageInformation=new List<LanguageInfo>(){new LanguageInfo(){Extension="cs",LanguageName="C#",MilisecondsAllowed=200},new LanguageInfo(){Extension="cpp", LanguageName="C++", MilisecondsAllowed=1000}},Description="Given an array of integer numbers, count the positives and negatives" };
+                Problem cat3 = new Problem() { Name = "C3",LanguageInformation=new List<LanguageInfo>(){new LanguageInfo(){Extension="cs",LanguageName="C#",MilisecondsAllowed=200},new LanguageInfo(){Extension="cpp", LanguageName="C++", MilisecondsAllowed=1000}},Description="Given an array of non negative integer numbers, and, a number x, tell whether x is present on the array" };
+                var tempList = new List<Problem>() { cat1, cat2, cat3 };
+                foreach (var item in tempList)
+                {
+                    this.ProblemContext.InsertElementAsync(item);
+                }
+            }
+
         }
 
         [HttpGet]
@@ -30,30 +44,30 @@ namespace alfa_back.Controllers
         }
         // GET api/<CatController>/5
         [HttpGet("{id}")]
-        public Problem Get(string id)
+        public async Task<Problem> Get(string id)
         {
-            return this.ProblemContext.GetElementById(id);
+            return await this.ProblemContext.GetElementById(id);
         }
 
         // POST api/<CatController>
         [HttpPost]
-        public void Post([FromBody] Problem value)
+        public async Task Post([FromBody] Problem value)
         {
-            this.ProblemContext.InsertElement(value);
+            await this.ProblemContext.InsertElementAsync(value);
         }
 
         // PUT api/<CatController>/5
         [HttpPut("{id}")]
-        public void Put(string id, [FromBody] Problem value)
+        public async Task Put(string id, [FromBody] Problem value)
         {
-            this.ProblemContext.Update(id, value);
+            await this.ProblemContext.UpdateElementAsync(id, value);
         }
 
         // DELETE api/<CatController>/5
         [HttpDelete("{id}")]
-        public void Delete(string id)
+        public async Task Delete(string id)
         {
-            this.ProblemContext.RemoveElement(id);
+            await this.ProblemContext.DeleteElementByIdAsync(id);
         }
     }
 }

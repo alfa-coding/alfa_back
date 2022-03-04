@@ -1,15 +1,17 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace alfa_back.Infrastructure
 {
     public interface IConnector<T>
     {
-        IEnumerable<T> GetElements();
-        T GetElementById(string id);
-        bool InsertElement(T record);
+        IQueryable<T> GetElements();
+        Task<T> GetElementById(string id);
+        Task InsertElementAsync(T record);
 
-        bool RemoveElement(string id);
+        Task DeleteElementByIdAsync(string id);
 
-        bool Update(string id, T element);
+        Task UpdateElementAsync(string id, T element);
     }
 }
