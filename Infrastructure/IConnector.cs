@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 
-namespace alfa_back.Infrastructure.Concrete
+namespace alfa_back.Infrastructure
 {
-     public interface IConnector<T>
+    public interface IConnector<T>
     {
-        IEnumerable<T> GetElements(string table);
-        T GetElementById(string id, string table);
-        bool InsertElement(T record, string table);
+        IEnumerable<T> GetElements();
+        T GetElementById(string id);
+        bool InsertElement(T record);
 
-        bool RemoveElement(string id, string table);
+        bool RemoveElement(string id);
 
-        bool Update(string id, T element, string table);
+        bool Update(string id, T element);
     }
 }

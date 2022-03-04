@@ -8,5 +8,6 @@ namespace alfa_back.Infrastructure
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         ObjectId Id { get; set; }
+        
     }
 }

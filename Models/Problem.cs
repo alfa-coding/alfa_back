@@ -3,6 +3,7 @@ using alfa_back.Infrastructure.Concrete;
 
 namespace alfa_back.Models
 {
+    [BsonCollection("Problem")]
     public class Problem : Document
     {
         public string Description { get; set; }
