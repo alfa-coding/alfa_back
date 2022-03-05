@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using alfa_back.Infrastructure;
-using alfa_back.Models;
+using alfa_back.lib.Infrastructure;
+using alfa_back.lib.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
