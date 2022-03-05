@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using alfa_back.lib.Infrastructure;
 using alfa_back.lib.Models;
+using alfa_back.lib.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -25,10 +26,9 @@ namespace alfa_back.Controllers
             var isEmpty = this.ProblemContext.GetElements().ToList().Count == 0;
             if (isEmpty)
             {
-                Problem cat1 = new Problem() { Name = "C1",LanguageInformation=new List<LanguageInfo>(){new LanguageInfo(){Extension="cs",LanguageName="C#",MilisecondsAllowed=200},new LanguageInfo(){Extension="cpp", LanguageName="C++", MilisecondsAllowed=1000}},Description="Given an array of non negative integer numbers, calculate its average" };
-                Problem cat2 = new Problem() { Name = "C2",LanguageInformation=new List<LanguageInfo>(){new LanguageInfo(){Extension="cs",LanguageName="C#",MilisecondsAllowed=200},new LanguageInfo(){Extension="cpp", LanguageName="C++", MilisecondsAllowed=1000}},Description="Given an array of integer numbers, count the positives and negatives" };
-                Problem cat3 = new Problem() { Name = "C3",LanguageInformation=new List<LanguageInfo>(){new LanguageInfo(){Extension="cs",LanguageName="C#",MilisecondsAllowed=200},new LanguageInfo(){Extension="cpp", LanguageName="C++", MilisecondsAllowed=1000}},Description="Given an array of non negative integer numbers, and, a number x, tell whether x is present on the array" };
-                var tempList = new List<Problem>() { cat1, cat2, cat3 };
+                
+                List<Problem> tempList = CreateTesProblems();
+
                 foreach (var item in tempList)
                 {
                     this.ProblemContext.InsertElementAsync(item);
