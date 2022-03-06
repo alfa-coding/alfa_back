@@ -22,19 +22,6 @@ namespace alfa_back.Controllers
         {
             this._logger = logger;
             this.ProblemContext = _problemContext;
-
-            var isEmpty = this.ProblemContext.GetElements().ToList().Count == 0;
-            if (isEmpty)
-            {
-                
-                List<Problem> tempList = CreateTesProblems();
-
-                foreach (var item in tempList)
-                {
-                    this.ProblemContext.InsertElementAsync(item);
-                }
-            }
-
         }
 
         [HttpGet]
